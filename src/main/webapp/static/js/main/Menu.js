@@ -16,7 +16,6 @@ Menu.prototype._createContent = function($this){
 	var id = $this.attr('data-id'),
 		name = $this.text(),
 		href = $this.attr('href');
-	console.log(id);
 	if($this.is(this.defaultSelect)){
 		var $tab = $('<li data-id="'+ id +'" data-default="default"><a href="javascript:;" class="ue-clear"><span>'+ name +'</span></a></li>');	
 	}else{
@@ -94,7 +93,7 @@ Menu.prototype._close = function($this, flag){
 	}
 	
 	this._checkWidth(flag);
-}
+} 
 
 Menu.prototype._bindEvent = function(){
 	var self = this;
