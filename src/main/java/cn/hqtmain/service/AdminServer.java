@@ -188,7 +188,7 @@ public class AdminServer implements IAdminServer
 			session.setAttribute(Constants.SYSTEM_USER,admin);			
 			return admin;
 		} catch (AuthenticationException e) {
-			e.printStackTrace();
+			/*e.printStackTrace();*/
 			return null;
 		}		
 	}
