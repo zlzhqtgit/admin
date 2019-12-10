@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cn.hqtmain.mapper.MenuMapper">
+ 	<resultMap type="cn.hqtmain.entity.Menu" id="menuMap">
+		<id property="menuId" column="menu_id" />
+		<result property="menuName" column="menu_name" />
+		<result property="menuUrl" column="menu_url" />
+		<result property="menuIcon" column="menu_icon" />
+		<result property="authority" column="authority" />
+		<result property="isMenu" column="is_menu" />
+		<result property="parentId" column="parent_id" />
+	</resultMap> 
+	
+	<!-- 添加权限信息 -->
+	<!-- Integer insert(Menu Menu); -->
+	<insert id="insert" parameterType="cn.hqtmain.entity.Menu"	useGeneratedKeys="true" keyProperty="menuId">
+		insert into admin_menu( menu_name,menu_url,menu_icon,authority,is_menu,parent_id)
+		values(#{menuName},#{menuUrl},#{menuIcon},#{authority},#{isMenu},#{parentId})
+	</insert>
+	
+	<select id="select" resultMap="menuMap">
+			 SELECT 
+			 menu_id,menu_name,menu_url,menu_icon,authority,is_menu,parent_id
+			  FROM admin_menu 
+			<if test="where != null">where ${where}</if>
+		 	<if test="orderBy != null">order by  ${orderBy}</if> 
+		 	<if test="offset != null">limit   ${offset},${countPerPage}</if>
+	 </select>
+	 
+	 <update id="update" parameterType="cn.hqtmain.entity.Menu" >
+				update  admin_menu set
+				menu_name=#{menuName},menu_url=#{menuUrl},menu_icon=#{menuIcon},authority=#{authority},is_menu=#{isMenu},parent_id=#{parentId}			
+				where
+					menu_id=#{menuId}		
+	</update>
+	<delete id="delete" parameterType="cn.hqtmain.entity.Menu">
+			delete from admin_menu 			
+			<if test="where != null">where ${where}</if>
+	</delete>
+</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	

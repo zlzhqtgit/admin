@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+	<mapper namespace="cn.hqtmain.mapper.AdminMapper">
+	<resultMap type="cn.hqtmain.entity.Admin" id="adminMap">
+		<id property="id" column="id" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="userSex" column="user_sex" />
+		<result property="phone" column="phone" />
+		<result property="email" column="email" />
+		<result property="rid" column="rid" />
+		<result property="userAuthority" column="user_authority" />
+		<result property="comment" column="comment" />
+		<result property="uuid" column="uuid" />
+		<result property="creatTime" column="creat_time" />
+		<result property="roleId" column="role_id" />
+		<result property="cid" column="cid" />
+		<result property="companyName" column="company_name" />
+		<result property="roleName" column="role_name" />
+		<result property="roleAuthority" column="role_authority" />
+		<result property="roleDescription" column="role_description" />	
+		<result property="companyId" column="company_id" />
+		<result property="companyNumber" column="company_number" />
+		<result property="companyName" column="company_name" />
+		<result property="companyAdress" column="company_adress" />
+		<result property="creationTime" column="creation_time" />
+	</resultMap> 
+	<!-- 添加用户信息 -->
+	<!-- Integer insert(Admin admin); -->
+		<insert id="insert" parameterType="cn.hqtmain.entity.Admin" useGeneratedKeys="true" keyProperty="id">
+				insert into admin_user(
+					username,password,user_sex,phone,email,rid,user_authority,			
+					comment,uuid,creat_time					
+				)values(
+				#{username},#{password},
+					#{userSex},#{phone},					
+					#{email},#{rid},#{userAuthority},#{comment},					
+					#{uuid},#{creatTime}
+				)		
+		</insert>	
+		<!-- Integer update(Admin admin); -->
+		<update id="update" parameterType="cn.hqtmain.entity.Admin" >
+				update  admin_user set
+				username=#{username},user_sex=#{userSex},phone=#{phone},email=#{email},rid=#{rid},comment=#{comment},creat_time=#{creatTime}				
+				where
+					id=#{id}		
+		</update>	
+		<update id="updateAuthority" parameterType="cn.hqtmain.entity.Admin" >
+				update  admin_user set
+				user_authority=#{userAuthority},creat_time=#{creatTime}				
+				where
+					id=#{id}		
+		</update>
+		<!-- Integer updatePwd(Admin admin); -->
+		<update id="updatePwd" parameterType="cn.hqtmain.entity.Admin" >
+				update  admin_user set
+				password=#{password},creat_time=#{creatTime}				
+				where
+					id=#{id}		
+		</update>
+		<!-- Integer delete(Admin admin) -->	
+		<delete id="delete" parameterType="cn.hqtmain.entity.Admin">
+			delete from admin_user 
+			<if test="where != null">where ${where}</if>
+		</delete>
+		<!--查询收货地址  -->
+		<select id="select" resultMap="adminMap">
+			select  a.id,a.username,a.password,a.user_sex,a.phone,a.email,a.rid,a.user_authority,a.comment,a.uuid,a.creat_time,e.role_id,
+					e.cid,e.role_name,e.role_authority,e.role_description,b.company_id,b.company_number,b.company_name,b.company_adress,b.creation_time 
+			from admin_user a  
+			  	LEFT JOIN role e on a.rid=e.role_id
+			  	LEFT JOIN  company  b  on e.cid=b.company_id 	
+				<if test="where != null">where ${where}</if>
+		 		<if test="orderBy != null">order by  ${orderBy}</if> 
+		 		<if test="offset != null">limit   ${offset},${countPerPage}</if>		
+		</select>
+		 <select id="queryAdmin" resultType="Admin" parameterType="cn.hqtmain.entity.Admin">
+			 SELECT id,username,password,user_sex,phone,email,rid,user_authority,comment,uuid,creat_time FROM admin_user u WHERE u.username=#{username} 
+	 	</select>	
+	 	<select id="getAdminByUsername" resultMap="adminMap" >
+			 	select  a.id,a.username,a.password,a.user_sex,a.phone,a.email,a.rid,a.user_authority,a.comment,a.uuid,a.creat_time,e.role_id,
+					e.cid,e.role_name,e.role_authority,e.role_description,b.company_id,b.company_number,b.company_name,b.company_adress,b.creation_time 
+			from admin_user a  
+			  	LEFT JOIN role e on a.rid=e.role_id
+			  	LEFT JOIN  company  b  on e.cid=b.company_id  WHERE a.username=#{username} 
+	 	</select>	 			
+	</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	

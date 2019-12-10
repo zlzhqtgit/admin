@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--注意:此处是根据命名空间的值找到dao接口的，因此必须要与dao接口的全局限定名对应 映射文件中sql语句的id也要与dao接口中的方法名对应，否则会报错 -->
+<mapper namespace="cn.hqtmain.mapper.MessageMapper">
+	<!-- <sql id="messageSQL">
+		m.`m_id`,m.`m_Content`,m.`m_Time`,m.`m_Fromuser`,m.`m_Touser`
+	</sql>
+
+	查询所有消息
+	<select id="queryAll" resultMap="messageMap">
+		SELECT * FROM user_messages
+	</select> -->
+
+	<!-- 查询对应的聊天信息 -->
+	<select id="queryMessage" resultType="cn.hqtmain.entity.Message" >
+		SELECT	m_content as mContent,m_time as mTime,m_fromuser as mFromuser,m_touser as mTouser
+		FROM user_messages 
+		WHERE 
+		(m_fromuser=#{mFromuser} AND m_touser=#{mTouser}) 
+		OR
+		(m_fromuser=#{mTouser} AND m_touser=#{mFromuser})
+		ORDER BY m_Time
+	</select> 
+    
+	<!-- 2.主键id是自增，但是参数中不能省去，否则报错（该配置返回新增后可以获取主键ID主键，同时返回受影响的行数） -->	
+	<insert id="saveMessage" parameterType="cn.hqtmain.entity.Message" useGeneratedKeys="true" keyProperty="mId">
+				insert into user_messages(
+					m_content,m_time,m_fromuser,m_touser	
+				)values(
+				#{mContent},#{mTime},#{mFromuser},#{mTouser}
+				)		
+	</insert>	
+    <!-- *********************新增(测试结束)**************************** -->
+    
+    
+    <delete id="deleteMessage" parameterType="String">
+    DELETE FROM user_messages 
+    WHERE 
+		(m_Fromuser = #{fromUID} AND m_Touser = #{toUID}) 
+		OR
+		(m_Fromuser = #{toUID} AND m_Touser = #{fromUID})
+
+    </delete>
+
+ 	<delete id="deleteMoreMessage" parameterType="java.lang.String">
+		DELETE FROM user_messages WHERE
+		(
+		m_Fromuser IN
+		<foreach collection="UIDlist" item="userID"  open="(" separator="," close=")">
+			#{userID}
+		</foreach>
+		AND m_Touser= #{UID}
+		)
+		OR
+		(
+		m_Touser IN
+		<foreach collection="UIDlist" item="userID"  open="(" separator="," close=")">
+			#{userID}
+		</foreach>
+		AND m_Fromuser= #{UID}
+		)
+	</delete> 
+	
+    
+
+
+
+</mapper>
