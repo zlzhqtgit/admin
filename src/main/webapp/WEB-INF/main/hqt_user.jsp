@@ -21,7 +21,7 @@
         	<div class="sidebar-bg"></div>
             <i class="sidebar-hide"></i>
             <h2><a href=""><i class="h2-icon" title="切换到树型结构"></i><span>用户管理</span></a></h2>
-            <ul class="nav">
+            <ul class="nav" id="nav-tab">
             	<!-- <li class="nav-li current" data-id="1"><a href="javascript:;" class="ue-clear"><i class="nav-ivon1"></i><span class="nav-text">首页</span></a></li> -->
             	<shiro:hasPermission name="admin:list">              	
 	            	 <li class="nav-li">
@@ -61,7 +61,7 @@
 	                	<a href="javascript:;" class="ue-clear"><i class="nav-ivon"></i><span class="nav-text">安全管理</span></a>
 	                    <ul class="subnav">
 	                    	<shiro:hasPermission name="safe:pwdedit">
-	                    		<li class="subnav-li" href="${pageContext.request.contextPath}/admin/hqt_admin_password.do" data-id="7"><a href="javascript:;" class="ue-clear"><<span class="subnav-text">修改密码</span></a></li>                        
+	                    		<li class="subnav-li" href="${pageContext.request.contextPath}/admin/hqt_admin_password.do" data-id="7"><a href="javascript:;" class="ue-clear"><span class="subnav-text">修改密码</span></a></li>                        
 	                    	</shiro:hasPermission>
 	                    </ul>
 	                </li>

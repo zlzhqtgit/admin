@@ -76,7 +76,6 @@ Menu.prototype._close = function($this, flag){
 		index = $this.index(),
 		$tab = this.tab.find('li').eq(index - 1),
 		isMorePanel = !!$(this).parents('.more-bab-list').size();
-		
 	
 	/*if(current && current.nav.hasClass('current')){ // modify 2014-3-24 can close the current
 		return;	
@@ -84,15 +83,18 @@ Menu.prototype._close = function($this, flag){
 	// 执行关闭
 	current.tab.remove();
 	current.iframe.remove();
-	current.more && current.more.remove();
-	
+	current.more && current.more.remove();	
 	delete this.cacheOpen[id];
-	
+	//var lisum=document.getElementById(".tab").getElementsByTagName("li").length;	
 	if(current && current.nav.hasClass('current')){ // modify 2014-3-24 delete current the prev one is selected
 		this._show($tab);
 	}
-	
 	this._checkWidth(flag);
+	if($(".tab li").length==0){
+		 $('#nav-tab').find('li').each(function() {
+        	 $(this).siblings('li').removeClass('current');
+        })
+	}
 } 
 
 Menu.prototype._bindEvent = function(){
@@ -114,7 +116,7 @@ Menu.prototype._bindEvent = function(){
 	
 	
 	this.tab.on('click', '.close-tab', function(){
-		self._close($(this).parents('li'));
+		self._close($(this).parents('li'));		
 		return false;
 	});
 	
@@ -143,6 +145,9 @@ Menu.prototype._bindEvent = function(){
 	/*关闭所有*/
 	$('.tab-close').click(function(e) {
         self._closeAll();
+        $('#nav-tab').find('li').each(function() {
+        	 $(this).siblings('li').removeClass('current');
+        })
     });
 	
 	this.tab.next('.tab-more').click(function(){
@@ -175,8 +180,7 @@ Menu.prototype._bindEvent = function(){
 	   }
 	   self.winWidth = $(window).width();
 	   
-	   if(!!!$('.more-bab-list').find('li').size()){
-			
+	   if(!!!$('.more-bab-list').find('li').size()){			
 			$tabMore.hide();
 		}else{
 			$tabMore.show();	
@@ -210,9 +214,7 @@ Menu.prototype._closeAll = function(){
 	});
 	$.each($('.tab').find('li'),function(){
 		if($(this).attr('data-default') !== 'default'){
-			self._close($(this));
-			console.log("ddd");
-			window.location.href;
+			self._close($(this));				
 		}else{			
 			self._select($(this))	
 		}
@@ -230,23 +232,21 @@ Menu.prototype._checkWidth = function(flag){
 		self = this;
 
 	if( this._checkCanTab() > 0 ){
-		$tabMore.show();
-		
-		
-		this._move2MorePanel(intoId);
-		
-	}else{
+		$tabMore.show();		
+		this._move2MorePanel(intoId);		
+	}else{		
 		$tabMore.hide();
 		if(!!$('.more-bab-list li').eq(0).size() && flag){
-			var id = $('.more-bab-list li').eq(0).attr('data-id');
-			
+			var id = $('.more-bab-list li').eq(0).attr('data-id');			
 			this._move2tab(id, true);
 		}
 	}
 	
 	if(!!!$('.more-bab-list').find('li').size()){
 		$('.more-bab-list').hide();
+		
 	}else{
+		
 		$tabMore.show();	
 	}
 	

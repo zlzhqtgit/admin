@@ -46,7 +46,7 @@ window.onload=function(){
         	<div class="nav-wrap">
                 <ul class="nav ue-clear">
                 	<shiro:hasPermission name="hqt_index:query">
-                    	<li><a>首页</a></li>
+                    	<li class="nav_lihover"><a>首页</a></li>
                     </shiro:hasPermission> 
                 	<shiro:hasPermission name="hqt_xgk:query">
                     	<li><a>新高考</a></li>

@@ -2,10 +2,6 @@ package cn.hqtmain.filter;
 
 
 
-import java.util.Arrays;
-import java.util.List;
-
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -13,12 +9,9 @@ import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import cn.hqtmain.entity.Admin;
 import cn.hqtmain.service.IAdminServer;
 import cn.hqtmain.util.LoginSession;

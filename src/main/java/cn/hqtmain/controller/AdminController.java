@@ -2,9 +2,7 @@ package cn.hqtmain.controller;
 
 
 
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -13,22 +11,18 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import cn.hqtmain.entity.Admin;
 import cn.hqtmain.entity.Company;
-import cn.hqtmain.entity.Menu;
 import cn.hqtmain.entity.Role;
 import cn.hqtmain.entity.ResponseResult;
-import cn.hqtmain.entity.UserChat;
-
 import cn.hqtmain.service.IAdminServer;
 import cn.hqtmain.service.ICompanyServer;
 import cn.hqtmain.service.IRoleServer;
 import cn.hqtmain.util.LoginSession;
-import net.sf.json.JSONObject;
+
 
 
 
