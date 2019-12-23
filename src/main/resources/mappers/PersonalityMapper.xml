@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cn.hqtmain.mapper.PersonalityMapper">
+	<resultMap id="personalityMap" type="cn.hqtmain.entity.Personality">
+		<id column="personality_id" property="personalityId" />
+		<result column="personality_code" property="personalityCode" />
+		<result column="personality_name" property="personalityName" />
+		<result column="test_name" property="testName" />
+		<result column="personality_brief" property="personalityBrief" />
+		<result column="personality_detial" property="personalityDetial" />
+		<result column="personality_specialty" property="personalitySpecialty" />
+		<result column="personality_vocation" property="personalityVocation" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		personality_id, personality_code, personality_name,test_name,
+		personality_brief, personality_detial, personality_specialty, personality_vocation
+	</sql>
+	<select id="select" resultMap="personalityMap">
+			 SELECT  
+			 <include refid="Base_Column_List" />
+			  FROM personality 
+			<if test="where != null">where ${where}</if>
+		 	<if test="orderBy != null">order by  ${orderBy}</if> 
+		 	<if test="offset != null">limit   ${offset},${countPerPage}</if> 
+	 </select>	
+	<!--新增认知测评结果数据信息 -->
+	<insert id="insert" parameterType="cn.hqtmain.entity.Personality">
+		INSERT INTO personality
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="personalityId != null">
+				personality_id,
+			</if>
+			<if test="personalityCode != null">
+				personality_code,
+			</if>
+			<if test="personalityName != null">
+				personality_name,
+			</if>
+			<if test="testName != null">
+				test_name,
+			</if>
+			<if test="personalityBrief != null">
+				personality_brief,
+			</if>
+			<if test="personalityDetial != null">
+				personality_detial,
+			</if>
+			<if test="personalitySpecialty != null">
+				personality_specialty,
+			</if>
+			<if test="personalityVocation != null">
+				personality_vocation,
+			</if>
+		</trim>
+		<trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+			<if test="personalityId != null">
+				#{personalityId},
+			</if>
+			<if test="personalityCode != null">
+				#{personalityCode},
+			</if>
+			<if test="personalityName != null">
+				#{personalityName},
+			</if>
+			<if test="testName != null">
+				#{testName},
+			</if>
+			<if test="personalityBrief != null">
+				#{personalityBrief},
+			</if>
+			<if test="personalityDetial != null">
+				#{personalityDetial},
+			</if>
+			<if test="personalitySpecialty != null">
+				#{personalitySpecialty},
+			</if>
+			<if test="personalityVocation != null">
+				#{personalityVocation},
+			</if>
+		</trim>
+	</insert>
+
+	<!--更新认知测评结果数据信息 -->
+	<update id="update" parameterType="cn.hqtmain.entity.Personality">
+		UPDATE personality
+		<set>
+			<if test="personalityId != null">
+				personality_id = #{personalityId},
+			</if>
+			<if test="personalityCode != null">
+				personality_code = #{personalityCode},
+			</if>
+			<if test="personalityName != null">
+				personality_name = #{personalityName},
+			</if>
+			<if test="testName != null">
+				test_name = #{testName},
+			</if>
+			<if test="personalityBrief != null">
+				personality_brief = #{personalityBrief},
+			</if>
+			<if test="personalityDetial != null">
+				personality_detial = #{personalityDetial},
+			</if>
+			<if test="personalitySpecialty != null">
+				personality_specialty = #{personalitySpecialty},
+			</if>
+			<if test="personalityVocation != null">
+				personality_vocation = #{personalityVocation},
+			</if>
+		</set>
+		WHERE
+		personality_id = #{personalityId}
+	</update>
+	<delete id="delete" parameterType="cn.hqtmain.entity.Personality">
+		DELETE FROM
+		personality
+		<if test="where != null">where ${where}</if>
+	</delete>
+	
+</mapper>

@@ -21,6 +21,6 @@ public interface IAdminServer
 	List<Admin> getuserAll();
 	Admin queryAdmin(String username);
 	Admin getAdminByUsername(String username);
-	Admin doLogin(String username,String password);
+	ResponseResult<Void> doLogin(String username,String password,HttpServletRequest request);
 
 }

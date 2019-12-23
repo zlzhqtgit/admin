@@ -157,8 +157,7 @@ Menu.prototype._bindEvent = function(){
 	
 	
 	/*window resize 事件*/
-	resize(function(e) {
-		console.log(e);
+	resize(function(e) {		
 		var width = self._checkCanTab(), tempWinWindow = self.winWidth - $(window).width(), $tabMore = self.tab.next('.tab-more');
 		$('.more-bab-list').hide();
 		$tabMore.removeClass('active');
@@ -252,10 +251,8 @@ Menu.prototype._checkWidth = function(flag){
 	
 }
 
-Menu.prototype._move2MorePanel = function(intoId){
-	
-	var obj = this.cacheOpen[intoId];
-	console.log(obj);
+Menu.prototype._move2MorePanel = function(intoId){	
+	var obj = this.cacheOpen[intoId];	
 	if(obj!=undefined){
 		var name = obj.tab.text();
 		obj.tab.detach();
@@ -264,9 +261,7 @@ Menu.prototype._move2MorePanel = function(intoId){
 	}else{
 		var name = "";
 		var $more = "";
-	}
-	
-	
+	}	
 	$('.more-bab-list').find('ul').append($more);
 }
 

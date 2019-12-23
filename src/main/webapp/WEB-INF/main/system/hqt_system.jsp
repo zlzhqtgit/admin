@@ -11,7 +11,7 @@
 <meta name="keywords" content="" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/style.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/skin_/nav.css" />
-
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/Hui-iconfont/1.0.8/iconfont.css" />
 </head>
 
 <body>
@@ -20,20 +20,21 @@
     	<div class="sidebar">
         	<div class="sidebar-bg"></div>
             <i class="sidebar-hide"></i>
-            <h2><a href=""><i class="h2-icon" title="切换到树型结构"></i><span>用户管理</span></a></h2>
-            <ul class="nav">
-              	<li class="nav-li current" href=""  data-id="1"><a href="javascript:;" class="ue-clear"><i class="nav-ivon1"></i><span class="nav-text">首页</span></a></li>
-            	 <li class="nav-li">
-                	<a href="javascript:;" class="ue-clear"><i class="nav-ivon"></i><span class="nav-text">单位信息管理</span></a>
-                	<ul class="subnav">
-                    	<li class="subnav-li current" href="${pageContext.request.contextPath}/hqt_company" data-id="2"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">单位信息查看</span></a></li>
-                        <li class="subnav-li current" href="${pageContext.request.contextPath}/hqt_companyadd" data-id="3"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">单位信息添加</span></a></li>               
-                    </ul>
-                </li>                               
+            <h2><a href=""><i class="Hui-iconfont h2-icon">&#xe62e;</i><span>系统管理</span></a></h2>
+            <ul class="nav" id="nav-tab">
+            	<c:if test="${SYSTEM_USER.username == 'adminuser'}"> 
+            		<li class="nav-li">
+	                	<a href="javascript:;" class="ue-clear"><i class="nav-ivon"></i><span class="nav-text">单位信息管理</span></a>
+	                	<ul class="subnav">
+	                    	<li class="subnav-li " href="${pageContext.request.contextPath}/hqt_company" data-id="2"><a href="javascript:;" class="ue-clear"><span class="subnav-text">单位信息查看</span></a></li>
+	                        <li class="subnav-li " href="${pageContext.request.contextPath}/hqt_companyadd" data-id="3"><a href="javascript:;" class="ue-clear"><span class="subnav-text">单位信息添加</span></a></li>               
+	                    </ul>
+	                </li>  
+            	</c:if>            	                         
             </ul>
             <div class="tree-list outwindow">
             	<div class="tree ztree"></div>
-            </div>
+            </div> 
         </div>
         <div class="main">
         	<div class="title">
@@ -64,11 +65,9 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/main/nav.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/main/Menu.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/main/jquery.ztree.core-3.5.js"></script>
-<script type="text/javascript">
+ <script type="text/javascript">
 	var menu = new Menu({
-		defaultSelect: $('.nav').find('li[data-id="1"]')	
+		/*  defaultSelect: $('.nav').find('li[data-id="1"]')  */
 	});
-	
-	
-</script>
+</script> 
 </html>

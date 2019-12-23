@@ -223,7 +223,19 @@ function layer_show(title,url,w,h){
 		scrollbar: false
 	});
 }
-
+function layer_showmax(title,url,w,h){	
+	var index=layer.open({
+		type: 2,		
+		fix: false, //不固定
+		area: [w+'px', h +'px'],
+		maxmin: true,
+		shade:0.4,
+		title: title,
+		content: url,
+		scrollbar: false
+	});
+	layer.full(index);
+}
 /*关闭弹出框口*/
 function layer_close(){
 	var index = parent.layer.getFrameIndex(window.name);

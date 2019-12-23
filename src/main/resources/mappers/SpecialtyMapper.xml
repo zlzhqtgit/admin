@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cn.hqtmain.mapper.SpecialtyMapper">
+	<resultMap id="specialtyMap" type="cn.hqtmain.entity.Specialty">
+		<id column="id" property="id" />
+		<result column="specialty_id" property="specialtyId" />
+		<result column="specialty_name" property="specialtyName" />
+		<result column="specialty_intro" property="specialtyIntro" />
+		<result column="specialty_major_name" property="specialtyMajorName" />
+		<result column="specialty_class_name" property="specialtyClassName" />
+		<result column="specialty_divided" property="specialtyDivided" />
+		<result column="specialty_disciplines" property="specialtyDisciplines" />
+		<result column="specialty_education" property="specialtyEducation" />
+		<result column="study_duration" property="studyDuration" />
+		<result column="bachelor_degree" property="bachelorDegree" />
+		<result column="male_female_ratio" property="maleFemaleRatio" />
+		<result column="specialty_summary" property="specialtySummary" />
+		<result column="train_requirement" property="trainRequirement" />
+		<result column="subject_requirement" property="subjectRequirement" />
+		<result column="knowledge_ability" property="knowledgeAbility" />
+		<result column="postgraduate_direction" property="postgraduateDirection" />
+		<result column="employment_career_direction" property="employmentCareerDirection" />
+		<result column="employment_industry_distribution" property="employmentIndustryDistribution" />
+		<result column="employment_area_distribution" property="employmentAreaDistribution" />
+		<result column="major_courses" property="majorCourses" />
+		<result column="specialty_objective" property="specialtyObjective" />
+		<result column="specialty_employment" property="specialtyEmployment" />
+		<result column="specialty_requirement" property="specialtyRequirement" />
+		<result column="physics_performance" property="physicsPerformance" />
+		<result column="chemistry_performance" property="chemistryPerformance" />
+		<result column="biology_performance" property="biologyPerformance" />
+		<result column="politic_performance" property="politicPerformance" />
+		<result column="history_performance" property="historyPerformance" />
+		<result column="geography_performance" property="geographyPerformance" />
+		<result column="chinese_performance" property="chinesePerformance" />
+		<result column="math_performance" property="mathPerformance" />
+		<result column="foreign_performance" property="foreignPerformance" />
+		<result column="above_a" property="aboveA" />
+		<result column="equal_a" property="equalA" />
+		<result column="below_a" property="belowA" />
+		<result column="above_b" property="aboveB" />
+		<result column="open_college" property="openCollege" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		specialty_id, specialty_name, specialty_intro,
+		specialty_major_name, specialty_class_name, specialty_divided,
+		specialty_disciplines, specialty_education, study_duration,
+		bachelor_degree, male_female_ratio,
+		specialty_summary,
+		train_requirement, subject_requirement, knowledge_ability,
+		postgraduate_direction,
+		employment_career_direction,
+		employment_industry_distribution,
+		employment_area_distribution,major_courses,
+		specialty_objective,
+		specialty_employment,specialty_requirement, physics_performance,
+		chemistry_performance,
+		biology_performance, politic_performance,
+		history_performance, geography_performance, chinese_performance,
+		math_performance, foreign_performance, above_a, equal_a, below_a,
+		above_b, open_college
+	</sql>
+	<insert id="insert" parameterType="cn.hqtmain.entity.Specialty"	useGeneratedKeys="true" keyProperty="specialtyId">
+		insert into specialty(
+			<include refid="Base_Column_List" />
+			)values(		
+			#{specialtyId},#{specialtyName},#{specialtyIntro},
+			#{specialtyMajorName},#{specialtyClassName},
+			#{specialtyDivided},#{specialtyDisciplines},
+			#{specialtyEducation},#{studyDuration},
+			#{bachelorDegree},#{maleFemaleRatio},
+			#{specialtySummary},#{trainRequirement},
+			#{subjectRequirement},#{knowledgeAbility},
+			#{postgraduateDirection},#{employmentCareerDirection},
+			#{employmentIndustryDistribution},
+			#{employmentAreaDistribution},#{majorCourses},
+			#{specialtyObjective},#{specialtyEmployment},
+			#{specialtyRequirement},#{physicsPerformance},
+			#{chemistryPerformance},#{biologyPerformance},
+			#{politicPerformance},#{historyPerformance},
+			#{geographyPerformance},#{chinesePerformance},
+			#{mathPerformance},	#{foreignPerformance},
+			#{aboveA},#{equalA},#{belowA},#{aboveB},
+			#{openCollege}
+			)			
+	</insert>	
+	<select id="select" resultMap="specialtyMap">
+			 SELECT id,
+			 	specialty_id, specialty_name, 
+				specialty_major_name, specialty_class_name, specialty_divided,
+				specialty_disciplines, specialty_education, study_duration,
+				bachelor_degree, male_female_ratio
+			  FROM specialty 
+			<if test="where != null">where ${where}</if>
+		 	<if test="orderBy != null">order by  ${orderBy}</if> 
+		 	<if test="offset != null">limit   ${offset},${countPerPage}</if> 
+	 </select>	
+	 <select id="selectBySpecialtyId" resultMap="specialtyMap">
+			 SELECT id,
+			 <include refid="Base_Column_List" />
+			  FROM specialty  	
+			<if test="where != null">where ${where}</if>		 		
+	 </select>	
+	 <select id="selectByMajorName" resultMap="specialtyMap">
+			 select distinct specialty_major_name from specialty 		
+	 </select>		
+	 <update id="update" parameterType="cn.hqtmain.entity.Specialty" >
+			update  specialty set				
+				specialty_id = #{specialtyId},	              	specialty_name = #{specialtyName},
+				specialty_intro = #{specialtyIntro},			specialty_major_name = #{specialtyMajorName},
+				specialty_class_name = #{specialtyClassName},	specialty_divided = #{specialtyDivided},
+				specialty_disciplines = #{specialtyDisciplines},specialty_education = #{specialtyEducation},
+				study_duration = #{studyDuration},				bachelor_degree = #{bachelorDegree},
+				male_female_ratio = #{maleFemaleRatio},			specialty_summary = #{specialtySummary},
+				train_requirement = #{trainRequirement},		subject_requirement = #{subjectRequirement},
+				knowledge_ability = #{knowledgeAbility},		postgraduate_direction = #{postgraduateDirection},
+				employment_career_direction =#{employmentCareerDirection},				
+				employment_industry_distribution =#{employmentIndustryDistribution},
+				employment_area_distribution =#{employmentAreaDistribution},				
+				major_courses = #{majorCourses},				specialty_objective = #{specialtyObjective},				
+				specialty_employment = #{specialtyEmployment},	specialty_requirement = #{specialtyRequirement},				
+				physics_performance = #{physicsPerformance},	chemistry_performance = #{chemistryPerformance},				
+				biology_performance = #{biologyPerformance},	politic_performance = #{politicPerformance},				
+				history_performance = #{historyPerformance},	geography_performance = #{geographyPerformance},				
+				chinese_performance = #{chinesePerformance},	math_performance = #{mathPerformance},				
+				foreign_performance = #{foreignPerformance},	above_a = #{aboveA},equal_a = #{equalA},				
+				below_a = #{belowA},above_b = #{aboveB},		open_college = #{openCollege}
+			where
+				id = #{id}			
+	</update>
+	<delete id="delete" parameterType="cn.hqtmain.entity.Specialty">
+			delete from specialty 			
+			<if test="where != null">where ${where}</if>
+	</delete>
+
+</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	

@@ -14,6 +14,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/H-ui.admin.js"></script> 
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/hqt_admin.js"></script> 
 </head>
 
 <body>
@@ -42,36 +43,5 @@
 		</div>
 	
 </article>
-
 </body>
-<script type="text/javascript">
-function addRole(){    
-	if ($("#roleName").val() == "") {
-		layer.msg("角色名称不能为空",{icon:2,time:1000});			
-	}else if($("#comment").val() == ""){
-		layer.msg("请输入备注",{icon:2,time:1000});
-	}else{		
-		var url = "hqt_roleadd.do";
-		var data = $("#form-admin-role-add").serialize();
-		alert(data);
-		$.ajax({
-			"url" : url,
-			"data" : data,
-			"type" : "POST",
-			"dataType" : "json",
-			"success" : function(obj) {
-				if (obj.state == 0) {
-					layer.msg(obj.message,{icon:2,time:1000});
-					return;
-				}else{
-					layer.msg(obj.message,{icon:1,time:1000});
-					$("#roleName").val("");					
-					$("#comment").val("");					
-				}				
-			}
-		}); 
-	}			
-}
-</script>
-
 </html>

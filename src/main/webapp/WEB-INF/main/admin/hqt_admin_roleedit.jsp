@@ -14,6 +14,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/H-ui.admin.js"></script> 
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/hqt_admin.js"></script> 
 </head>
 
 <body>
@@ -39,38 +40,10 @@
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
 			<input type="hidden"  value="${adminRoleList[0].roleId}"  id="roleId" name="roleId">
 			<input type="hidden"  value="${adminRoleList[0].roleName}"  id="oldroleName" name="oldroleName">
-				<button type="button" class="btn btn-success radius" id="admin-role-save" name="admin-role-save" onclick="addRole()"><i class="icon-ok"></i> 确定</button>
+				<button type="button" class="btn btn-success radius" id="admin-role-save" name="admin-role-save" onclick="editRole()"><i class="icon-ok"></i> 确定</button>
 			</div>
 		</div>
 	
 </article>
-
 </body>
-<script type="text/javascript">
-function addRole(){    
-	if ($("#roleName").val() == "") {
-		layer.msg("角色名称不能为空",{icon:2,time:1000});			
-	}else if($("#comment").val() == ""){
-		layer.msg("请输入备注",{icon:2,time:1000});
-	}else{		
-		var url = "hqt_roleedit.do";
-		var data = $("#form-admin-role-add").serialize()+"&roleId="+$("#roleId").val()+"&oldroleName="+$("#oldroleName").val();		
-		$.ajax({
-			"url" : url,
-			"data" : data,
-			"type" : "POST",
-			"dataType" : "json",
-			"success" : function(obj) {
-				if (obj.state == 0) {
-					layer.msg(obj.message,{icon:2,time:1000});
-					return;
-				}else{
-					layer.msg(obj.message,{icon:1,time:1000},function(){layer_close();});
-				}					
-			}
-		}); 
-	}			
-}
-</script>
-
 </html>

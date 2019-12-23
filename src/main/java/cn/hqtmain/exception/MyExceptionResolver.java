@@ -24,8 +24,8 @@ public class MyExceptionResolver implements HandlerExceptionResolver
 		if(!ex.equals("ajax")){				
 			mav.addObject("ex",ex);	
 			mav.addObject("path",request.getRequestURI());			
-			mav.setViewName("zytberror/error"); 
-		}		
+			mav.setViewName("error/hqt_error_servers"); 		
+		}
 		return mav;
 	}
 

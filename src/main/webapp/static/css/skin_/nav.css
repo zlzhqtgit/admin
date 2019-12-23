@@ -6,8 +6,7 @@
 .sidebar .sidebar-hide{ position:absolute; top:7px; right:0; width:19px; height:26px; background:url(../../images/skin_/toleft.png); cursor:pointer; z-index:1;}
 .sidebar h2{ height:40px; line-height:40px; background:#020c13;}
 .sidebar h2 a{ display:block;}
-.sidebar h2 a .h2-icon{float:left;margin:15px 0 0 35px; width:12px; height:12px; background:url(../../images/skin_/left_tree.png);}
-.sidebar h2 a:hover .h2-icon{background:url(../../images/skin_/left_tree.png);}
+.sidebar h2 a .h2-icon{float:left;margin:1px 0 0 35px; width:12px; height:12px;color: #ffffff;-webkit-text-stroke-width: 0px;}
 .sidebar h2 a span{ color:#fff; font-size:14px;margin-left:11px;}
 .sidebar .nav{ padding-bottom:2px; *padding-bottom:0;/* background:url(../../images/skin_/leftyy.png) repeat-x bottom; */}
 .sidebar .nav .nav-li{*height:36px;*margin-bottom:-5px;    padding: 1px;}

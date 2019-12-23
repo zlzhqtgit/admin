@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
@@ -178,19 +177,28 @@ public class AdminServer implements IAdminServer
 		return adminMapper.getAdminByUsername(username);
 	}
 	@Override
-	public Admin doLogin(String username, String password) {
+	public ResponseResult<Void> doLogin(String username, String password,HttpServletRequest request) {
+		ResponseResult<Void> rr;
 		Subject subject = SecurityUtils.getSubject();
 		UsernamePasswordToken token=new UsernamePasswordToken(username, password);
 		try {
+			token.setRememberMe(true);
 			subject.login(token);
-			Admin admin=getAdminByUsername(username);		
-			Session session=subject.getSession();
-			session.setAttribute(Constants.SYSTEM_USER,admin);			
-			return admin;
-		} catch (AuthenticationException e) {
-			/*e.printStackTrace();*/
-			return null;
-		}		
+			if(subject.isAuthenticated()){
+				Admin admin=getAdminByUsername(username);		
+				Session session=subject.getSession();
+				session.setAttribute(Constants.SYSTEM_USER,admin);	
+				rr=new ResponseResult<Void>(ResponseResult.STATE_OK,"登录成功");
+				logger.info("用户名："+LoginSession.getSession().getUsername()+" 模块名：用户登录   操作：登录   状态：OK!");	
+			}else{
+				rr=new ResponseResult<Void>(ResponseResult.STATE_OK,Constants.OPERATION_FAILED+"：用户名或密码错误");
+				logger.info("用户名："+LoginSession.getSession().getUsername()+" 模块名：用户登录   操作：登录   状态：FAILED!");	
+			}					
+		} catch (Exception e) {
+			logger.error("访问路径："+request.getRequestURI()+"操作：用户登录  错误信息: "+e);
+			rr=new ResponseResult<Void>(ResponseResult.ERR,Constants.OPERATION_FAILED+":数据存在异常，请联系工作人员处理！");
+		}
+		return rr;
 	}
 
 	

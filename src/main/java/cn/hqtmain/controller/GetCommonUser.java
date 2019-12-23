@@ -1,12 +1,14 @@
 package cn.hqtmain.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import javax.servlet.http.HttpServletRequest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import cn.hqtmain.entity.Menu;
-
+import net.sf.json.JSONArray;
 
 /**
 * @Title: GetCommonUser.java
@@ -17,7 +19,32 @@ import cn.hqtmain.entity.Menu;
 * @Copyright:好前途教育
 * @version V1.0
  */
-public class GetCommonUser {	
+public class GetCommonUser {
+	
+	private  static final  Logger logger = LogManager.getLogger(GetCommonUser.class.getName());
+	public  List<List<String>>  getJson(String jsonstr,HttpServletRequest request){		
+		try {
+			JSONArray jsonArray=JSONArray.fromObject(jsonstr);
+			if(jsonArray.size()>0){
+				List<List<String>> listTest = new ArrayList<List<String>>();
+				 for (int j = 0; j < jsonArray.size(); j++) {
+			            List<String> columnList = new ArrayList<String>();
+			            for(int i=0;i<jsonArray.getJSONArray(j).size();i++){
+			            	 columnList.add(i,(String) jsonArray.getJSONArray(j).getString(i));
+			            }			         
+			            listTest.add(j, columnList);           	
+				 }  
+				return listTest;
+			}else{
+				return null;
+			}		 	
+		} catch (Exception e) {
+			logger.error("访问路径："+request.getRequestURI()+"操作： 二维数组转List 错误信息: "+e);
+			return null;
+		}			
+	}
+	
+	//菜单信息排序
 	public List<Menu> sort(int parentId, List<Menu> listB, List<Menu> listA) {
         for (Menu menu : listB) {
             if (menu.getParentId().equals(parentId)) {
@@ -27,52 +54,12 @@ public class GetCommonUser {
         }
         return listA;
     }
-	/**
-	 * MD5加密方法 
-	 * @param password密码
-	 * @param uuid 密码加密处理的uuid
-	 * @return MD5 返回加密好的字符串
-	 */
+	
+	//MD5加密方法 	 
 	public String getEncrpytedPassword(String hashAlgorithmName,String password, String uuid,int  hashIterations) {    
 	    Object result = new SimpleHash(hashAlgorithmName,password,uuid,hashIterations);	   
 		return (result.toString()).toUpperCase();
 	}
 
-	public List<String> gethld(Map<String, Integer> cpFengshu) {
-		// 排序以后截取前3个类型代码
-		List<String> mobileList = cpFengshu.entrySet().stream()
-				.sorted((Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) -> o2.getValue() - o1.getValue())
-				.map(entry -> entry.getKey()).collect(Collectors.toList()).subList(0, 3);
-		return mobileList;
-	}
-
-	public String getMbti(Map<String, Integer> cpFengshu) {
-		String cpresult = "";
-		// 判断第一层面E-I,属于那种，如果分数相同取I
-		if (cpFengshu.get("E") > cpFengshu.get("I")) {
-			cpresult += "E";
-		} else {
-			cpresult += "I";
-		}
-		// 判断第二层面S-N,属于那种，如果分数相同取N
-		if (cpFengshu.get("S") > cpFengshu.get("N")) {
-			cpresult += "S";
-		} else {
-			cpresult += "N";
-		}
-		// 判断第三层面T-F,属于那种，如果分数相同取F
-		if (cpFengshu.get("T") > cpFengshu.get("F")) {
-			cpresult += "T";
-		} else {
-			cpresult += "F";
-		}
-		// 判断第四层面J-P,属于那种，如果分数相同取P
-		if (cpFengshu.get("J") > cpFengshu.get("P")) {
-			cpresult += "J";
-		} else {
-			cpresult += "P";
-		}
-		return cpresult;
-	}
 
 }

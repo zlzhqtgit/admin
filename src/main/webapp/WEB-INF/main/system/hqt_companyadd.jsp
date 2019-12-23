@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset=utf-8>
-<title>底部内容页</title>
+<title>单位添加信息页</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="" />
@@ -14,6 +14,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/H-ui.admin.js"></script> 
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/hqt_company.js"></script> 
 </head>
 
 <body>
@@ -46,38 +47,5 @@
 		</div>
 	
 </article>
-
 </body>
-<script type="text/javascript">
-function addcompany(){    
-	if($("#companyNumber").val() == ""){
-		layer.msg("请输入单位编号",{icon:2,time:1000});
-	}else if($("#companyName").val() == ""){
-		layer.msg("请输入单位名称",{icon:2,time:1000});
-	}else if($("#companyAdress").val() == ""){
-		layer.msg("请输入单位地址",{icon:2,time:1000});
-	}else{		
-		var url = "companyadd";
-		var data = $("#form-company-add").serialize();		
-		$.ajax({
-			"url" : url,
-			"data" : data,
-			"type" : "POST",
-			"dataType" : "json",			
-			"success" : function(obj) {
-				if (obj.state == 0) {
-					layer.msg(obj.message,{icon:2,time:1000});
-					return;
-				}else{
-					layer.msg(obj.message,{icon:1,time:1000});
-					$("#companyNumber").val("");					
-					$("#companyName").val("");	
-					$("#companyAdress").val("");				
-				}				
-			}
-		}); 
-	}			
-}
-</script>
-
 </html>

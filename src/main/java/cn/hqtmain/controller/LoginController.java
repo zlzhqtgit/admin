@@ -1,6 +1,7 @@
 package cn.hqtmain.controller;
 
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
@@ -11,9 +12,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import cn.hqtmain.entity.Admin;
 import cn.hqtmain.entity.ResponseResult;
+import cn.hqtmain.exception.MyRuntimeException;
 import cn.hqtmain.service.IAdminServer;
+import cn.hqtmain.util.LoginSession;
 
 /**
 * @Title: LoginController.java
@@ -32,14 +34,24 @@ public class LoginController {
 	private  static final  Logger logger = LogManager.getLogger(LoginController.class.getName());
 	
 	/**
-	 * 后端用户登录模块
-	 * @param map
-	 * @return nav_login模块
+	 * @throws MyRuntimeException 
+	* @Title: showNavlogin
+	* @Description: (后台系统登录页面)
+	* @param @param map
+	* @param @return    
+	* @return String    
+	* @throws
 	 */
 	@RequestMapping("/login")	
-	public String showNavlogin(ModelMap map){		
-		logger.info("用户名： 模块名：登录模块  操作：进入模块  状态：OK!");
-		return "hqt_login";	
+	public String showNavlogin(ModelMap map,HttpServletRequest request) throws MyRuntimeException{
+//		try {			
+//			logger.info("用户名："+LoginSession.getSession().getUsername()+" 模块名：登录模块  操作：进入模块  状态：OK!");
+			return "hqt_login";
+//		} catch (Exception e) {
+//			logger.error("访问路径："+request.getRequestURI()+"操作：登录模块   错误信息: "+e);
+//			throw new MyRuntimeException(e);
+//		}		
+			
 	}
 	/**
 	* @Title: handleAdminlogin
@@ -56,14 +68,7 @@ public class LoginController {
 	@ResponseBody
 	public ResponseResult<Void> handleAdminlogin(String username,String password, HttpSession session,HttpServletRequest request)
 	{	
-		ResponseResult<Void> rr;						
-		Admin admin=adminServer.doLogin(username, password);		
-		if(admin==null){
-			rr=new ResponseResult<Void>(ResponseResult.ERR,"用户名或密码错误");				
-		}else{
-			logger.info("用户名："+username+" 模块名：登录模块 操作：登录  状态：OK!");
-			rr = new ResponseResult<Void>(ResponseResult.STATE_OK, "登录成功");	
-		}		
+		ResponseResult<Void> rr=adminServer.doLogin(username, password,request);;		
 		return rr;
 	}
 }

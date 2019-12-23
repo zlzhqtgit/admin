@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cn.hqtmain.mapper.VocationMapper">
+	<resultMap id="vocationMap" type="cn.hqtmain.entity.Vocation" >
+		<id column="v_id" property="vId" />
+		<result column="vocation_id" property="vocationId" />
+		<result column="vocation_name" property="vocationName" />
+		<result column="industry_name" property="industryName" />
+		<result column="industry_major_name" property="industryMajorName" />
+		<result column="vocation_brief" property="vocationBrief" />
+		<result column="prospect" property="prospect" />
+		<result column="work_experience" property="workExperience" />
+		<result column="work_content" property="workContent" />
+		<result column="education_credential" property="educationCredential" />
+		<result column="relation_specialty" property="relationSpecialty" />
+		<result column="salary_trend" property="salaryTrend" />
+		<result column="salary_distribution" property="salaryDistribution" />
+		<result column="employment_situation_education" property="employmentSituationEducation" />
+		<result column="employment_situation_experience" property="employmentSituationExperience" />
+		<result column="requirement_qualification" property="requirementQualification" />
+		<result column="education_qualification" property="educationQualification" />
+		<result column="specialty_know" property="specialtyKnow" />
+		<result column="specialty_skill" property="specialtySkill" />
+		<result column="work_year" property="workYear" />
+		<result column="work_achieved" property="workAchieved" />
+		<result column="organization_ability" property="organizationAbility" />
+		<result column="plan_ability" property="planAbility" />
+	</resultMap>
+
+	<sql id="Base_Column_List" >
+		v_id, vocation_id, vocation_name, industry_name, industry_major_name, vocation_brief,
+		prospect, work_experience, work_content, education_credential, relation_specialty,
+		salary_trend, salary_distribution, employment_situation_education, employment_situation_experience,
+		requirement_qualification, education_qualification, specialty_know, specialty_skill,
+		work_year, work_achieved, organization_ability, plan_ability
+  	</sql>			
+		<select id="select" resultMap="vocationMap">
+			select  				
+				v_id, vocation_id, vocation_name, industry_name, 
+				industry_major_name,requirement_qualification, 
+				education_qualification, specialty_know, specialty_skill,
+				work_year, work_achieved, organization_ability, plan_ability
+			from vocation 					 
+			<if test="where != null">where ${where}</if>
+		 	<if test="orderBy != null">order by  ${orderBy}</if> 
+		 	<if test="offset != null">limit   ${offset},${countPerPage}</if>		
+		</select>
+	  <select id="selectByVocationId" resultMap="vocationMap">
+			select  				
+				<include refid="Base_Column_List" />
+			from vocation 					 
+			<if test="where != null">where ${where}</if>
+		 	<if test="orderBy != null">order by  ${orderBy}</if> 
+		 	<if test="offset != null">limit   ${offset},${countPerPage}</if>		
+		</select>
+
+	  <!--更新职业数据信息-->
+	  <update id="updateVocationById" parameterType="cn.hqtmain.entity.Vocation">
+		  UPDATE vocation
+		  <set>
+			  <if test="vId != null" >
+				  v_id = #{vId},
+			  </if>
+			  <if test="vocationId != null" >
+				  vocation_id = #{vocationId},
+			  </if>
+			  <if test="vocationName != null" >
+				  vocation_name = #{vocationName},
+			  </if>
+			  <if test="industryName != null" >
+				  industry_name = #{industryName},
+			  </if>
+			  <if test="industryMajorName != null" >
+				  industry_major_name = #{industryMajorName},
+			  </if>
+			  <if test="vocationBrief != null" >
+				  vocation_brief = #{vocationBrief},
+			  </if>
+			  <if test="prospect != null" >
+				  prospect = #{prospect},
+			  </if>
+			  <if test="workExperience != null" >
+				  work_experience = #{workExperience},
+			  </if>
+			  <if test="workContent != null" >
+				  work_content = #{workContent},
+			  </if>
+			  <if test="educationCredential != null" >
+				  education_credential = #{educationCredential},
+			  </if>
+			  <if test="relationSpecialty != null" >
+				  relation_specialty = #{relationSpecialty},
+			  </if>
+			  <if test="salaryTrend != null" >
+				  salary_trend = #{salaryTrend},
+			  </if>
+			  <if test="salaryDistribution != null" >
+				  salary_distribution = #{salaryDistribution},
+			  </if>
+			  <if test="employmentSituationEducation != null" >
+				  employment_situation_education = #{employmentSituationEducation},
+			  </if>
+			  <if test="employmentSituationExperience != null" >
+				  employment_situation_experience = #{employmentSituationExperience},
+			  </if>
+			  <if test="requirementQualification != null" >
+				  requirement_qualification = #{requirementQualification},
+			  </if>
+			  <if test="educationQualification != null" >
+				  education_qualification = #{educationQualification},
+			  </if>
+			  <if test="specialtyKnow != null" >
+				  specialty_know = #{specialtyKnow},
+			  </if>
+			  <if test="specialtySkill != null" >
+				  specialty_skill = #{specialtySkill},
+			  </if>
+			  <if test="workYear != null" >
+				  work_year = #{workYear},
+			  </if>
+			  <if test="workAchieved != null" >
+				  work_achieved = #{workAchieved},
+			  </if>
+			  <if test="organizationAbility != null" >
+				  organization_ability = #{organizationAbility},
+			  </if>
+			  <if test="planAbility != null" >
+				  plan_ability = #{planAbility},
+			  </if>
+		  </set>
+		  WHERE v_id = #{vId};
+	  </update>
+	  <!--删除职业数据信息-->
+	  <delete id="deleteVocationById" parameterType="java.lang.Integer">
+			DELETE FROM vocation WHERE v_id = #{vId}
+	  </delete>
+		<!--新增职业数据信息-->
+		<insert id="insertVocation" parameterType="cn.hqtmain.entity.Vocation" >
+			INSERT INTO vocation
+			<trim prefix="(" suffix=")" suffixOverrides="," >
+				<if test="vId != null" >
+					v_id,
+				</if>
+				<if test="vocationId != null" >
+					vocation_id,
+				</if>
+				<if test="vocationName != null" >
+					vocation_name,
+				</if>
+				<if test="industryName != null" >
+					industry_name,
+				</if>
+				<if test="industryMajorName != null" >
+					industry_major_name,
+				</if>
+				<if test="vocationBrief != null" >
+					vocation_brief,
+				</if>
+				<if test="prospect != null" >
+					prospect,
+				</if>
+				<if test="workExperience != null" >
+					work_experience,
+				</if>
+				<if test="workContent != null" >
+					work_content,
+				</if>
+				<if test="educationCredential != null" >
+					education_credential,
+				</if>
+				<if test="relationSpecialty != null" >
+					relation_specialty,
+				</if>
+				<if test="salaryTrend != null" >
+					salary_trend,
+				</if>
+				<if test="salaryDistribution != null" >
+					salary_distribution,
+				</if>
+				<if test="employmentSituationEducation != null" >
+					employment_situation_education,
+				</if>
+				<if test="employmentSituationExperience != null" >
+					employment_situation_experience,
+				</if>
+				<if test="requirementQualification != null" >
+					requirement_qualification,
+				</if>
+				<if test="educationQualification != null" >
+					education_qualification,
+				</if>
+				<if test="specialtyKnow != null" >
+					specialty_know,
+				</if>
+				<if test="specialtySkill != null" >
+					specialty_skill,
+				</if>
+				<if test="workYear != null" >
+					work_year,
+				</if>
+				<if test="workAchieved != null" >
+					work_achieved,
+				</if>
+				<if test="organizationAbility != null" >
+					organization_ability,
+				</if>
+				<if test="planAbility != null" >
+					plan_ability,
+				</if>
+			</trim>
+			<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+				<if test="vId != null" >
+					#{vId},
+				</if>
+				<if test="vocationId != null" >
+					#{vocationId},
+				</if>
+				<if test="vocationName != null" >
+					#{vocationName},
+				</if>
+				<if test="industryName != null" >
+					#{industryName},
+				</if>
+				<if test="industryMajorName != null" >
+					#{industryMajorName},
+				</if>
+				<if test="vocationBrief != null" >
+					#{vocationBrief},
+				</if>
+				<if test="prospect != null" >
+					#{prospect},
+				</if>
+				<if test="workExperience != null" >
+					#{workExperience},
+				</if>
+				<if test="workContent != null" >
+					#{workContent},
+				</if>
+				<if test="educationCredential != null" >
+					#{educationCredential},
+				</if>
+				<if test="relationSpecialty != null" >
+					#{relationSpecialty},
+				</if>
+				<if test="salaryTrend != null" >
+					#{salaryTrend},
+				</if>
+				<if test="salaryDistribution != null" >
+					#{salaryDistribution},
+				</if>
+				<if test="employmentSituationEducation != null" >
+					#{employmentSituationEducation},
+				</if>
+				<if test="employmentSituationExperience != null" >
+					#{employmentSituationExperience},
+				</if>
+				<if test="requirementQualification != null" >
+					#{requirementQualification},
+				</if>
+				<if test="educationQualification != null" >
+					#{educationQualification},
+				</if>
+				<if test="specialtyKnow != null" >
+					#{specialtyKnow},
+				</if>
+				<if test="specialtySkill != null" >
+					#{specialtySkill},
+				</if>
+				<if test="workYear != null" >
+					#{workYear},
+				</if>
+				<if test="workAchieved != null" >
+					#{workAchieved},
+				</if>
+				<if test="organizationAbility != null" >
+					#{organizationAbility},
+				</if>
+				<if test="planAbility != null" >
+					#{planAbility},
+				</if>
+			</trim>
+	  </insert>
+		
+</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	
